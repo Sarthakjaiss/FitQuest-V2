@@ -1,0 +1,115 @@
+.bmi-page { animation: fadeInUp 0.4s ease; }
+
+.bmi-layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.bmi-calculator { padding: 24px; display: flex; flex-direction: column; gap: 0; }
+
+.calc-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.calc-header h2 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.04em;
+}
+
+.unit-toggle {
+  display: flex;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  margin-bottom: 20px;
+  gap: 4px;
+}
+.unit-btn {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: calc(var(--radius-md) - 2px);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-condensed);
+  font-weight: 600;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.unit-btn.active {
+  background: var(--accent);
+  color: #0a0a0f;
+}
+
+.bmi-ranges {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.range-title {
+  font-family: var(--font-condensed);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+.range-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+.range-item.active { background: var(--bg-secondary); }
+.range-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.range-label { flex: 1; font-family: var(--font-condensed); font-weight: 600; font-size: 0.88rem; color: var(--text-secondary); }
+.range-val { font-family: var(--font-mono); font-size: 0.8rem; font-weight: 500; }
+
+
+.bmi-results { display: flex; flex-direction: column; gap: 16px; }
+
+.bmi-gauge-card { padding: 24px; text-align: center; }
+.gauge-wrap { width: 200px; margin: 0 auto 8px; }
+.gauge-svg { width: 100%; }
+.gauge-category {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  letter-spacing: 0.05em;
+}
+
+.bmi-advice-card { padding: 24px; }
+.advice-icon { font-size: 2rem; margin-bottom: 10px; }
+.advice-title {
+  font-family: var(--font-condensed);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
+.advice-msg { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px; }
+.advice-tips { display: flex; flex-direction: column; gap: 8px; }
+.advice-tip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  font-family: var(--font-condensed);
+  font-weight: 600;
+}
+.tip-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+.bmi-placeholder { min-height: 260px; display: flex; align-items: center; justify-content: center; }
+
+@media (max-width: 900px) {
+  .bmi-layout { grid-template-columns: 1fr; }
+}
