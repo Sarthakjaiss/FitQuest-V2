@@ -1,4 +1,5 @@
 require('dotenv').config();
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const { connectDB } = require('./models/db');
@@ -29,6 +30,15 @@ async function startServer() {
     app.get('/api/health', (req, res) => {
       res.json({ status: 'OK', message: '💪 FitQuest API is running', timestamp: new Date().toISOString() });
     });
+
+    if (process.env.NODE_ENV === 'production') {
+      const clientDist = path.join(__dirname, '../client/dist');
+      app.use(express.static(clientDist));
+      app.use((req, res, next) => {
+        if (req.method !== 'GET' || req.path.startsWith('/api')) return next();
+        res.sendFile(path.join(clientDist, 'index.html'), (err) => (err ? next(err) : undefined));
+      });
+    }
 
     app.use((err, req, res, next) => {
       console.error(err.stack);
