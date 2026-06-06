@@ -19,9 +19,6 @@
       "dest": "/api/[...path].js"
     },
     {
-      "handle": "filesystem"
-    },
-    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
