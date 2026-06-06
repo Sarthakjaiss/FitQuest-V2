@@ -1,12 +1,12 @@
 {
   "version": 3,
-  "installCommand": "cd client && npm install",
-  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "buildCommand": "cd client && npm install && npm run build",
   "builds": [
     {
-      "src": "package.json",
+      "src": "client/package.json",
       "use": "@vercel/static-build",
-      "config": { "distDir": "client/dist" }
+      "config": { "distDir": "dist" }
     },
     {
       "src": "client/api/**/*.js",
