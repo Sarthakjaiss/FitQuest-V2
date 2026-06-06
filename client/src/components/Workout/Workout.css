@@ -7,7 +7,7 @@
   margin-bottom: 28px;
 }
 
-
+/* Templates */
 .templates-section { margin-bottom: 32px; }
 .template-card {
   padding: 20px;
@@ -47,7 +47,7 @@
   transition: opacity 0.2s;
 }
 
-
+/* Form */
 .workout-form { padding: 28px; }
 
 .intensity-btn {
@@ -65,7 +65,7 @@
 .intensity-btn.active { border-color: currentColor; background: rgba(255,255,255,0.05); }
 .intensity-btn:hover { background: var(--bg-card); }
 
-
+/* Exercise rows */
 .exercises-section {}
 .exercise-list { display: flex; flex-direction: column; gap: 10px; }
 .exercise-row {
@@ -101,7 +101,7 @@
   font-size: 0.85rem;
 }
 
-
+/* Week Grid */
 .plans-section {}
 .plans-week-grid {
   display: grid;

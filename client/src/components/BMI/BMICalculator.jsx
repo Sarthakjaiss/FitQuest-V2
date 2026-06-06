@@ -69,12 +69,14 @@ export default function BMICalculator() {
   return (
     <div className="bmi-page animate-fade-in">
       <div className="bmi-layout">
+        {/* Calculator Panel */}
         <div className="bmi-calculator card">
           <div className="calc-header">
             <Scale size={20} color="var(--accent2)" />
             <h2>BMI Calculator</h2>
           </div>
 
+          {/* Unit Toggle */}
           <div className="unit-toggle">
             <button className={`unit-btn ${unit === 'metric' ? 'active' : ''}`} onClick={() => setUnit('metric')}>Metric (kg/cm)</button>
             <button className={`unit-btn ${unit === 'imperial' ? 'active' : ''}`} onClick={() => setUnit('imperial')}>Imperial (lb/in)</button>
@@ -96,6 +98,7 @@ export default function BMICalculator() {
             Calculate BMI
           </button>
 
+          {/* BMI Ranges Reference */}
           <div className="bmi-ranges">
             <p className="range-title">BMI Categories</p>
             {BMI_RANGES.map(r => (
@@ -108,16 +111,20 @@ export default function BMICalculator() {
           </div>
         </div>
 
+        {/* Results Panel */}
         <div className="bmi-results">
           {result ? (
             <>
+              {/* Gauge */}
               <div className="card bmi-gauge-card">
                 <div className="gauge-wrap">
                   <svg viewBox="0 0 200 110" className="gauge-svg">
+                    {/* Background arc segments */}
                     <path d="M 10 100 A 90 90 0 0 1 47.5 26.7" stroke="#00e5ff" strokeWidth="10" fill="none" strokeLinecap="round" opacity={0.3} />
                     <path d="M 47.5 26.7 A 90 90 0 0 1 100 10" stroke="#2ed573" strokeWidth="10" fill="none" strokeLinecap="round" opacity={0.3} />
                     <path d="M 100 10 A 90 90 0 0 1 152.5 26.7" stroke="#ffa502" strokeWidth="10" fill="none" strokeLinecap="round" opacity={0.3} />
                     <path d="M 152.5 26.7 A 90 90 0 0 1 190 100" stroke="#ff4757" strokeWidth="10" fill="none" strokeLinecap="round" opacity={0.3} />
+                    {/* Active segment */}
                     <path
                       d={result.bmi < 18.5 ? "M 10 100 A 90 90 0 0 1 47.5 26.7"
                         : result.bmi < 25 ? "M 47.5 26.7 A 90 90 0 0 1 100 10"
@@ -125,10 +132,12 @@ export default function BMICalculator() {
                         : "M 152.5 26.7 A 90 90 0 0 1 190 100"}
                       stroke={getBMIColor(result.bmi)} strokeWidth="10" fill="none" strokeLinecap="round"
                     />
+                    {/* Needle */}
                     <g transform={`rotate(${getNeedleRotation(parseFloat(result.bmi))}, 100, 100)`}>
                       <line x1="100" y1="100" x2="100" y2="18" stroke={getBMIColor(result.bmi)} strokeWidth="2.5" strokeLinecap="round" />
                       <circle cx="100" cy="100" r="5" fill={getBMIColor(result.bmi)} />
                     </g>
+                    {/* Value text */}
                     <text x="100" y="82" textAnchor="middle" fill={getBMIColor(result.bmi)} fontSize="22" fontFamily="Bebas Neue" letterSpacing="1">{result.bmi}</text>
                     <text x="100" y="96" textAnchor="middle" fill="var(--text-muted)" fontSize="9" fontFamily="Barlow Condensed" fontWeight="600" letterSpacing="2">BMI INDEX</text>
                   </svg>
@@ -141,6 +150,7 @@ export default function BMICalculator() {
                 </button>
               </div>
 
+              {/* Advice Card */}
               <div className="card bmi-advice-card">
                 <div className="advice-icon">{ADVICE[result.category].icon}</div>
                 <h3 className="advice-title">Recommendations for {result.category}</h3>
@@ -155,6 +165,7 @@ export default function BMICalculator() {
                 </div>
               </div>
 
+              {/* Healthy weight range */}
               <div className="card" style={{ padding: 20 }}>
                 <div style={{ display:'flex', alignItems:'center', gap: 8, marginBottom: 12 }}>
                   <Info size={16} color="var(--accent)" />
@@ -178,6 +189,7 @@ export default function BMICalculator() {
             </div>
           )}
 
+          {/* History Chart */}
           {history.length >= 2 && (
             <div className="card" style={{ padding: 20 }}>
               <h3 style={{ fontFamily:'var(--font-display)', fontSize:'1.2rem', marginBottom: 12 }}>BMI History</h3>

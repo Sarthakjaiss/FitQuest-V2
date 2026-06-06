@@ -60,6 +60,7 @@ export default function Settings() {
   return (
     <div className="settings-page animate-fade-in">
       <div className="settings-container">
+        {/* Header */}
         <div className="settings-header">
           <div className="sh-icon">
             <Zap size={24} />
@@ -70,6 +71,7 @@ export default function Settings() {
           </div>
         </div>
 
+        {/* Personal Information */}
         <div className="card settings-card">
           <div className="sc-header">
             <User size={18} color="var(--accent)" />
@@ -132,6 +134,7 @@ export default function Settings() {
           </div>
         </div>
 
+        {/* Physical Metrics */}
         <div className="card settings-card">
           <div className="sc-header">
             <Activity size={18} color="var(--accent2)" />
@@ -175,6 +178,7 @@ export default function Settings() {
           )}
         </div>
 
+        {/* Fitness Preferences */}
         <div className="card settings-card">
           <div className="sc-header">
             <Zap size={18} color="var(--warning)" />
@@ -214,6 +218,7 @@ export default function Settings() {
           </div>
         </div>
 
+        {/* Save Button */}
         <div style={{ display: 'flex', gap: 12 }}>
           <button
             className="btn btn-primary btn-lg"
@@ -231,6 +236,7 @@ export default function Settings() {
           </button>
         </div>
 
+        {/* Info Box */}
         <div className="settings-info-box">
           <p>
             💡 Your profile helps us calculate your personalized TDEE, suggest appropriate workouts,

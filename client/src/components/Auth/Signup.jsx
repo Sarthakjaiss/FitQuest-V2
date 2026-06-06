@@ -62,6 +62,7 @@ export default function Signup() {
 
   return (
     <div className="auth-page">
+      {/* Brand Panel */}
       <div className="auth-brand">
         <div className="brand-glow" />
         <div className="brand-content">
@@ -86,6 +87,7 @@ export default function Signup() {
         </div>
       </div>
 
+      {/* Form Panel */}
       <div className="auth-form-panel">
         <div className="auth-form-box animate-fade-up">
           <div className="auth-header">

@@ -3,21 +3,29 @@ import { PlaySquare, Search, Filter } from 'lucide-react';
 import './Videos.css';
 
 const VIDEOS = [
-  { id:'hWbUlkb5Ms4', title:'Perfect Bench Press Form', muscle:'Chest',    level:'Intermediate', duration:'8:24' },
-  { id:'IODxDxX7oi4', title:'Push-Up Mastery Guide',   muscle:'Chest',    level:'Beginner',     duration:'6:15' },
-  { id:'ZaTM37cfiDs', title:'Deadlift Technique 101',  muscle:'Back',     level:'Intermediate', duration:'12:30' },
+  // Chest
+  { id:'5r1dEXFjO_c', title:'Perfect Bench Press Form', muscle:'Chest',    level:'Intermediate', duration:'8:24' },
+  { id:'RFWD-j0j3Ew', title:'Push-Up Mastery Guide',   muscle:'Chest',    level:'Beginner',     duration:'6:15' },
+  // Back
+  { id:'4AqFIc7mHz4', title:'Deadlift Technique 101',  muscle:'Back',     level:'Intermediate', duration:'12:30' },
   { id:'eGo4IYlbE5g', title:'Pull-Up Perfect Form',    muscle:'Back',     level:'Beginner',     duration:'7:42' },
-  { id:'zoN5EH50Dro', title:'Overhead Press Guide',    muscle:'Shoulders',level:'Intermediate', duration:'9:10' },
-  { id:'Kl3LEzQ5Zqs', title:'Lateral Raise Technique', muscle:'Shoulders',level:'Beginner',     duration:'5:30' },
-  { id:'eFEVKmp3M4g', title:'Squat Like a Pro',        muscle:'Legs',     level:'Intermediate', duration:'11:20' },
-  { id:'1cS-6KsJW9g', title:'Lunge Variations Guide',  muscle:'Legs',     level:'Beginner',     duration:'6:50' },
-  { id:'b_TTLmmQmXU', title:'Core Workout Masterclass',muscle:'Core',     level:'Intermediate', duration:'14:00' },
-  { id:'L9cgI67Mzi0', title:'Plank Progression Plan',  muscle:'Core',     level:'Beginner',     duration:'5:00' },
+  // Shoulders
+  { id:'qEwKCR5JCog', title:'Overhead Press Guide',    muscle:'Shoulders',level:'Intermediate', duration:'9:10' },
+  { id:'Vwx5xAK-Azw', title:'Lateral Raise Technique', muscle:'Shoulders',level:'Beginner',     duration:'5:30' },
+  // Legs
+  { id:'ultWZbUMPL8', title:'Squat Like a Pro',        muscle:'Legs',     level:'Intermediate', duration:'11:20' },
+  { id:'JDAcVcVNLqE', title:'Lunge Variations Guide',  muscle:'Legs',     level:'Beginner',     duration:'6:50' },
+  // Core
+  { id:'1g4V9V8vu40', title:'Core Workout Masterclass',muscle:'Core',     level:'Intermediate', duration:'14:00' },
+  { id:'9mdbtEHI5To', title:'Plank Progression Plan',  muscle:'Core',     level:'Beginner',     duration:'5:00' },
+  // Cardio
   { id:'ml6cT4AZdqI', title:'HIIT Cardio Full Routine', muscle:'Cardio',   level:'Advanced',     duration:'20:15' },
-  { id:'OWGXhg50EHI', title:'Beginner Cardio Workout',  muscle:'Cardio',   level:'Beginner',     duration:'15:00' },
+  { id:'7Y3A3otnwn8', title:'Beginner Cardio Workout',  muscle:'Cardio',   level:'Beginner',     duration:'15:00' },
+  // Arms
   { id:'ykJmrZ5v0Oo', title:'Bicep Curl Perfection',    muscle:'Arms',     level:'Beginner',     duration:'5:45' },
-  { id:'4ua3MzaU0QU', title:'Tricep Dip Masterclass',   muscle:'Arms',     level:'Intermediate', duration:'6:20' },
-  { id:'itJE4neqDJw', title:'Full Body Stretching Flow',muscle:'Flexibility',level:'Beginner', duration:'18:00' },
+  { id:'sFBfvJIeXcE', title:'Tricep Dip Masterclass',   muscle:'Arms',     level:'Intermediate', duration:'6:20' },
+  // Flexibility
+  { id:'qFpSXoEQhbM', title:'Full Body Stretching Flow',muscle:'Flexibility',level:'Beginner', duration:'18:00' },
   { id:'g_tea8ZNk5A', title:'Yoga for Athletes',        muscle:'Flexibility',level:'Intermediate',duration:'22:30' },
 ];
 
@@ -41,6 +49,7 @@ export default function ExerciseVideos() {
 
   return (
     <div className="videos-page animate-fade-in">
+      {/* Search & Filters */}
       <div className="videos-toolbar">
         <div className="video-search">
           <Search size={16} className="vs-icon" />
@@ -68,6 +77,7 @@ export default function ExerciseVideos() {
         </div>
       </div>
 
+      {/* Featured / Active Player */}
       {activeVideo && (
         <div className="video-player-section animate-fade-up">
           <div className="video-player-card card">
@@ -102,8 +112,9 @@ export default function ExerciseVideos() {
         </div>
       )}
 
+      {/* Video Grid */}
       <div style={{ marginTop: activeVideo ? 24 : 0 }}>
-        <div className="section-header\">
+        <div className="section-header">
           <div>
             <h2 className="section-title">Exercise Library</h2>
             <p className="section-subtitle">{filtered.length} videos — click to watch with expert form guidance</p>

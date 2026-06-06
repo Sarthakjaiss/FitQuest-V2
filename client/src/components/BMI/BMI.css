@@ -74,7 +74,7 @@
 .range-label { flex: 1; font-family: var(--font-condensed); font-weight: 600; font-size: 0.88rem; color: var(--text-secondary); }
 .range-val { font-family: var(--font-mono); font-size: 0.8rem; font-weight: 500; }
 
-
+/* Results */
 .bmi-results { display: flex; flex-direction: column; gap: 16px; }
 
 .bmi-gauge-card { padding: 24px; text-align: center; }

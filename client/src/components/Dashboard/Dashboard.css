@@ -155,7 +155,7 @@
 }
 .quick-action-card:hover .qa-arrow { opacity: 1; }
 
-
+/* Profile Summary */
 .profile-summary { padding: 22px 24px; }
 .ps-header {
   display: flex;

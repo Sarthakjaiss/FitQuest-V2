@@ -65,6 +65,7 @@ export default function Blog() {
 
   return (
     <div className="blog-page animate-fade-in">
+      {/* Header */}
       <div className="blog-header">
         <div>
           <h1 className="blog-title">Fitness Community</h1>
@@ -75,6 +76,7 @@ export default function Blog() {
         </Link>
       </div>
 
+      {/* Categories */}
       <div className="blog-categories">
         {CATEGORIES.map(cat => (
           <button
@@ -87,6 +89,7 @@ export default function Blog() {
         ))}
       </div>
 
+      {/* Posts Grid */}
       {loading ? (
         <div style={{ textAlign: 'center', padding: '60px 20px' }}>
           <div className="spinner" style={{ width: 40, height: 40, margin: '0 auto' }} />
@@ -160,6 +163,7 @@ export default function Blog() {
         </div>
       )}
 
+      {/* Pagination */}
       {totalPages > 1 && (
         <div className="pagination">
           <button

@@ -1,9 +1,11 @@
-
+/* ═══════════════════════════════════════════════════════════════
+   FitQuest Design System — Industrial Athletic Theme
+   ═══════════════════════════════════════════════════════════════ */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  
+  /* ── Dark Theme (Default) ── */
   --bg-primary:      #0a0a0f;
   --bg-secondary:    #111118;
   --bg-card:         #16161e;
@@ -16,10 +18,10 @@
   --text-secondary:  #9090a8;
   --text-muted:      #5a5a70;
 
-  --accent:          #c8f135;     
+  --accent:          #c8f135;     /* Electric Lime */
   --accent-dim:      rgba(200,241,53,0.15);
   --accent-glow:     rgba(200,241,53,0.35);
-  --accent2:         #00e5ff;     
+  --accent2:         #00e5ff;     /* Cyan */
   --accent2-dim:     rgba(0,229,255,0.12);
   --danger:          #ff4757;
   --danger-dim:      rgba(255,71,87,0.15);
@@ -97,20 +99,20 @@ body {
   overflow-x: hidden;
 }
 
-
+/* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-secondary); }
 ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 
-
+/* ── Selection ── */
 ::selection { background: var(--accent-dim); color: var(--accent); }
 
-
+/* ── Typography ── */
 h1, h2, h3 { font-family: var(--font-display); letter-spacing: 0.03em; line-height: 1.1; }
 h4, h5, h6 { font-family: var(--font-condensed); font-weight: 700; }
 
-
+/* ── App Layout ── */
 .app-layout {
   display: flex;
   min-height: 100vh;
@@ -133,7 +135,7 @@ h4, h5, h6 { font-family: var(--font-condensed); font-weight: 700; }
   margin: 0 auto;
 }
 
-
+/* ── Glass Card ── */
 .glass-card {
   background: var(--bg-glass);
   backdrop-filter: blur(16px);
@@ -142,7 +144,7 @@ h4, h5, h6 { font-family: var(--font-condensed); font-weight: 700; }
   box-shadow: var(--shadow-md);
 }
 
-
+/* ── Buttons ── */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -202,7 +204,7 @@ h4, h5, h6 { font-family: var(--font-condensed); font-weight: 700; }
 .btn-icon { padding: 10px; border-radius: var(--radius-md); }
 .btn-full { width: 100%; justify-content: center; }
 
-
+/* ── Form Elements ── */
 .form-group { display: flex; flex-direction: column; gap: 8px; }
 .form-label {
   font-family: var(--font-condensed);
@@ -233,7 +235,7 @@ h4, h5, h6 { font-family: var(--font-condensed); font-weight: 700; }
 .form-select { cursor: pointer; }
 .form-textarea { resize: vertical; min-height: 100px; }
 
-
+/* ── Cards ── */
 .card {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -245,7 +247,7 @@ h4, h5, h6 { font-family: var(--font-condensed); font-weight: 700; }
 .card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-md); }
 .card-accent { border-left: 3px solid var(--accent); }
 
-
+/* ── Stat Cards ── */
 .stat-card {
   background: var(--gradient-card);
   border: 1px solid var(--border);
@@ -287,7 +289,7 @@ h4, h5, h6 { font-family: var(--font-condensed); font-weight: 700; }
   color: var(--accent);
 }
 
-
+/* ── Badge ── */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -305,7 +307,7 @@ h4, h5, h6 { font-family: var(--font-condensed); font-weight: 700; }
 .badge-danger { background: var(--danger-dim); color: var(--danger); }
 .badge-info { background: var(--accent2-dim); color: var(--accent2); }
 
-
+/* ── Section Headers ── */
 .section-header {
   display: flex;
   align-items: center;
@@ -326,13 +328,13 @@ h4, h5, h6 { font-family: var(--font-condensed); font-weight: 700; }
   margin-top: 4px;
 }
 
-
+/* ── Grid Layouts ── */
 .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
 
-
+/* ── Progress Bar ── */
 .progress-bar {
   height: 6px;
   background: var(--bg-secondary);
@@ -346,14 +348,14 @@ h4, h5, h6 { font-family: var(--font-condensed); font-weight: 700; }
   transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-
+/* ── Divider ── */
 .divider {
   height: 1px;
   background: var(--border);
   margin: 20px 0;
 }
 
-
+/* ── Animations ── */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -378,7 +380,7 @@ h4, h5, h6 { font-family: var(--font-condensed); font-weight: 700; }
 .animate-fade-in { animation: fadeIn 0.4s ease forwards; }
 .animate-glow { animation: pulse-glow 2s infinite; }
 
-
+/* ── Loading Spinner ── */
 .spinner {
   width: 24px; height: 24px;
   border: 2px solid var(--border);
@@ -387,7 +389,7 @@ h4, h5, h6 { font-family: var(--font-condensed); font-weight: 700; }
   animation: spin 0.7s linear infinite;
 }
 
-
+/* ── Skeleton ── */
 .skeleton {
   background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-card-hover) 50%, var(--bg-card) 75%);
   background-size: 200% 100%;
@@ -395,7 +397,7 @@ h4, h5, h6 { font-family: var(--font-condensed); font-weight: 700; }
   border-radius: var(--radius-md);
 }
 
-
+/* ── Tag ── */
 .tag {
   display: inline-flex;
   align-items: center;
@@ -417,7 +419,7 @@ h4, h5, h6 { font-family: var(--font-condensed); font-weight: 700; }
   color: var(--accent);
 }
 
-
+/* ── Tooltip ── */
 [data-tooltip] { position: relative; }
 [data-tooltip]::after {
   content: attr(data-tooltip);
@@ -438,7 +440,7 @@ h4, h5, h6 { font-family: var(--font-condensed); font-weight: 700; }
 }
 [data-tooltip]:hover::after { opacity: 1; }
 
-
+/* ── Auth Pages ── */
 .auth-page {
   min-height: 100vh;
   display: grid;
@@ -475,7 +477,7 @@ h4, h5, h6 { font-family: var(--font-condensed); font-weight: 700; }
   max-width: 440px;
 }
 
-
+/* ── Responsive ── */
 @media (max-width: 1024px) {
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
   .grid-3 { grid-template-columns: repeat(2, 1fr); }
@@ -489,7 +491,7 @@ h4, h5, h6 { font-family: var(--font-condensed); font-weight: 700; }
   .section-title { font-size: 1.6rem; }
 }
 
-
+/* ── No Data State ── */
 .empty-state {
   display: flex;
   flex-direction: column;

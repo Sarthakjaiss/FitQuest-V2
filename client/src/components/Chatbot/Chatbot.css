@@ -7,7 +7,7 @@
   height: 100%;
 }
 
-
+/* Sidebar */
 .chat-sidebar {
   display: flex;
   flex-direction: column;
@@ -81,7 +81,7 @@
 .pc-name { display: block; font-family: var(--font-condensed); font-weight: 700; font-size: 0.88rem; color: var(--text-primary); }
 .pc-goal { display: block; font-size: 0.72rem; color: var(--accent); font-family: var(--font-condensed); font-weight: 600; text-transform: capitalize; }
 
-
+/* Chat Window */
 .chat-window {
   padding: 0;
   display: flex;
@@ -131,7 +131,7 @@
   font-weight: 600;
 }
 
-
+/* Messages */
 .messages-area {
   flex: 1;
   overflow-y: auto;
@@ -201,7 +201,7 @@
   text-align: right;
 }
 
-
+/* Typing indicator */
 .msg-bubble.typing {
   display: flex;
   align-items: center;
@@ -222,7 +222,7 @@
   30% { transform: translateY(-5px); }
 }
 
-
+/* Input */
 .chat-input-area {
   padding: 16px 20px;
   border-top: 1px solid var(--border);

@@ -64,6 +64,7 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard animate-fade-in">
+      {/* Hero Greeting */}
       <div className="dashboard-hero">
         <div className="hero-text">
           <span className="hero-greeting">{greeting},</span>
@@ -79,6 +80,7 @@ export default function Dashboard() {
         </div>
       </div>
 
+      {/* Stat Cards */}
       <div className="grid-4" style={{ marginBottom: 28 }}>
         {[
           { label: 'BMI Score', value: bmi || '--', unit: bmiCategory || 'Not set', icon: Activity, color: '#00e5ff' },
@@ -97,7 +99,9 @@ export default function Dashboard() {
         ))}
       </div>
 
+      {/* Main Grid */}
       <div className="dashboard-grid">
+        {/* Weekly Chart */}
         <div className="card dashboard-chart-card">
           <div className="section-header" style={{ marginBottom: 16 }}>
             <div>
@@ -130,6 +134,7 @@ export default function Dashboard() {
           </ResponsiveContainer>
         </div>
 
+        {/* Goal Progress */}
         <div className="card goal-progress-card">
           <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.3rem', marginBottom: 8 }}>Weekly Goal</h3>
           <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: 16 }}>72% complete this week</p>
@@ -164,6 +169,7 @@ export default function Dashboard() {
         </div>
       </div>
 
+      {/* Quick Actions */}
       <div style={{ marginTop: 28 }}>
         <div className="section-header">
           <div>
@@ -184,6 +190,7 @@ export default function Dashboard() {
         </div>
       </div>
 
+      {/* Profile Summary */}
       {user && (
         <div className="card profile-summary animate-fade-up" style={{ marginTop: 28 }}>
           <div className="ps-header">

@@ -6,7 +6,7 @@
   overflow: hidden;
 }
 
-
+/* ── Brand Panel ── */
 .auth-brand {
   background: var(--bg-secondary);
   display: flex;
@@ -141,7 +141,7 @@
   50% { transform: translateY(-6px); }
 }
 
-
+/* ── Form Panel ── */
 .auth-form-panel {
   display: flex;
   align-items: center;
@@ -199,7 +199,7 @@
   margin-top: 4px;
 }
 
-
+/* ── Input with icon ── */
 .input-wrapper {
   position: relative;
   display: flex;
@@ -233,7 +233,7 @@
 }
 .input-action:hover { color: var(--text-primary); }
 
-
+/* ── Auth divider ── */
 .auth-divider {
   display: flex;
   align-items: center;
@@ -249,7 +249,7 @@
   background: var(--border);
 }
 
-
+/* ── Goal chips ── */
 .goal-grid {
   display: flex;
   flex-wrap: wrap;

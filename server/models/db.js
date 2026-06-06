@@ -1,13 +1,16 @@
 const mongoose = require('mongoose');
 
+// ═════════════════════════════════════════════════════════════════════════════
+// User Schema
+// ═════════════════════════════════════════════════════════════════════════════
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true, lowercase: true },
   password: { type: String, required: true },
   gender: { type: String, enum: ['male', 'female', 'other'], default: 'other' },
   age: Number,
-  weight: Number,
-  height: Number,
+  weight: Number, // kg
+  height: Number, // cm
   fitness_goal: { 
     type: String, 
     enum: ['weight_loss', 'muscle_gain', 'endurance', 'flexibility', 'general'],
@@ -22,19 +25,25 @@ const userSchema = new mongoose.Schema({
   updatedAt: { type: Date, default: Date.now }
 });
 
+// ═════════════════════════════════════════════════════════════════════════════
+// BMI Record Schema
+// ═════════════════════════════════════════════════════════════════════════════
 const bmiRecordSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  weight: { type: Number, required: true },
-  height: { type: Number, required: true },
+  weight: { type: Number, required: true }, // kg
+  height: { type: Number, required: true }, // cm
   bmi: { type: Number, required: true },
   category: { type: String, enum: ['Underweight', 'Normal', 'Overweight', 'Obese'] },
   recordedAt: { type: Date, default: Date.now }
 });
 bmiRecordSchema.index({ userId: 1, recordedAt: -1 });
 
+// ═════════════════════════════════════════════════════════════════════════════
+// Diet Log Schema
+// ═════════════════════════════════════════════════════════════════════════════
 const dietLogSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  date: { type: String, required: true },
+  date: { type: String, required: true }, // YYYY-MM-DD
   calories_target: Number,
   calories_consumed: { type: Number, default: 0 },
   protein_g: { type: Number, default: 0 },
@@ -46,11 +55,14 @@ const dietLogSchema = new mongoose.Schema({
 });
 dietLogSchema.index({ userId: 1, date: -1 });
 
+// ═════════════════════════════════════════════════════════════════════════════
+// Workout Plan Schema
+// ═════════════════════════════════════════════════════════════════════════════
 const workoutExerciseSchema = new mongoose.Schema({
   name: { type: String, required: true },
   sets: { type: Number, default: 3 },
   reps: { type: String, default: '10' },
-  rest: { type: Number, default: 60 },
+  rest: { type: Number, default: 60 }, // seconds
   muscle: String
 }, { _id: false });
 
@@ -66,6 +78,9 @@ const workoutPlanSchema = new mongoose.Schema({
 });
 workoutPlanSchema.index({ userId: 1, day_of_week: 1 });
 
+// ═════════════════════════════════════════════════════════════════════════════
+// Chat History Schema
+// ═════════════════════════════════════════════════════════════════════════════
 const chatHistorySchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   role: { type: String, enum: ['user', 'assistant'], required: true },
@@ -74,6 +89,9 @@ const chatHistorySchema = new mongoose.Schema({
 });
 chatHistorySchema.index({ userId: 1, createdAt: -1 });
 
+// ═════════════════════════════════════════════════════════════════════════════
+// Blog Post Schema
+// ═════════════════════════════════════════════════════════════════════════════
 const commentSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   userName: String,
@@ -96,6 +114,9 @@ const blogPostSchema = new mongoose.Schema({
 blogPostSchema.index({ userId: 1, createdAt: -1 });
 blogPostSchema.index({ category: 1, createdAt: -1 });
 
+// ═════════════════════════════════════════════════════════════════════════════
+// Connect to MongoDB
+// ═════════════════════════════════════════════════════════════════════════════
 async function connectDB() {
   try {
     const mongoURL = process.env.MONGODB_URI || 'mongodb://localhost:27017/fitquest';
@@ -110,6 +131,9 @@ async function connectDB() {
   }
 }
 
+// ═════════════════════════════════════════════════════════════════════════════
+// Models
+// ═════════════════════════════════════════════════════════════════════════════
 const User = mongoose.model('User', userSchema);
 const BMIRecord = mongoose.model('BMIRecord', bmiRecordSchema);
 const DietLog = mongoose.model('DietLog', dietLogSchema);

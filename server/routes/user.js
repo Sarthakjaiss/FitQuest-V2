@@ -4,133 +4,7 @@ const { authenticateToken } = require('../middleware/auth');
 
 const router = express.Router();
 
-const buildSystemPrompt = (user) => `You are FitBot, an elite personal fitness coach and nutritionist AI embedded in the FitQuest fitness app.
-
-USER PROFILE:
-- Name: ${user?.name || 'Athlete'}
-- Gender: ${user?.gender || 'not specified'}
-- Age: ${user?.age || 'not specified'}
-- Weight: ${user?.weight ? user.weight + ' kg' : 'not specified'}
-- Height: ${user?.height ? user.height + ' cm' : 'not specified'}
-- Fitness Goal: ${user?.fitness_goal?.replace('_', ' ') || 'general fitness'}
-- Activity Level: ${user?.activity_level?.replace('_', ' ') || 'moderate'}
-
-YOUR ROLE:
-You provide personalized, science-based fitness and nutrition advice. Be energetic, motivating, and specific. Always consider the user's profile when giving advice. Use metrics and numbers whenever possible.
-
-GUIDELINES:
-- Give concrete, actionable workout plans with sets, reps, rest times
-- Provide specific calorie and macro recommendations based on their stats
-- Suggest exercises appropriate for their fitness level and goal
-- Use encouraging language and celebrate their commitment
-- Format workout plans clearly with bullet points or numbered lists
-- When asked for a full workout plan, structure it by day (Mon-Sun)
-- Include warm-up and cool-down recommendations
-- Mention injury prevention and proper form tips
-- Keep responses focused and practical
-
-PERSONALITY: Enthusiastic, knowledgeable, supportive. Like a world-class personal trainer who genuinely cares about the user's success.`;
-
-const callGemini = async ({ user, content, history }) => {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    return { ok: false, status: 500, error: 'Gemini API key is not configured on the server' };
-  }
-
-  const model = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-
-  const conversation = history
-    .filter((msg) => msg && typeof msg.content === 'string' && msg.content.trim())
-    .map((msg) => ({
-      role: msg.role === 'assistant' ? 'model' : 'user',
-      parts: [{ text: msg.content }]
-    }));
-
-  conversation.push({ role: 'user', parts: [{ text: content }] });
-
-  const geminiResponse = await fetch(endpoint, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      systemInstruction: {
-        role: 'system',
-        parts: [{ text: buildSystemPrompt(user) }]
-      },
-      contents: conversation,
-      generationConfig: {
-        temperature: 0.7,
-        maxOutputTokens: 1000
-      }
-    })
-  });
-
-  const data = await geminiResponse.json();
-  if (!geminiResponse.ok) {
-    console.error('Gemini API Error:', data);
-    return {
-      ok: false,
-      status: geminiResponse.status || 502,
-      error: data?.error?.message || `Gemini API error: ${geminiResponse.status}`
-    };
-  }
-
-  const reply = data?.candidates?.[0]?.content?.parts
-    ?.map((part) => part?.text || '')
-    .join('')
-    .trim();
-
-  if (!reply) {
-    return { ok: false, status: 502, error: 'Gemini returned an empty response' };
-  }
-
-  return { ok: true, reply };
-};
-
-const callOllama = async ({ user, content, history }) => {
-  const model = process.env.OLLAMA_MODEL || 'llama3.1:8b';
-  const baseUrl = (process.env.OLLAMA_URL || 'http://localhost:11434').replace(/\/$/, '');
-  const endpoint = `${baseUrl}/api/chat`;
-
-  const messages = [
-    { role: 'system', content: buildSystemPrompt(user) },
-    ...history
-      .filter((msg) => msg && typeof msg.content === 'string' && msg.content.trim())
-      .map((msg) => ({
-        role: msg.role === 'assistant' ? 'assistant' : 'user',
-        content: msg.content
-      })),
-    { role: 'user', content }
-  ];
-
-  const ollamaResponse = await fetch(endpoint, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model,
-      messages,
-      stream: false
-    })
-  });
-
-  const data = await ollamaResponse.json();
-  if (!ollamaResponse.ok) {
-    console.error('Ollama API Error:', data);
-    return {
-      ok: false,
-      status: ollamaResponse.status || 502,
-      error: data?.error || `Ollama API error: ${ollamaResponse.status}`
-    };
-  }
-
-  const reply = data?.message?.content?.trim();
-  if (!reply) {
-    return { ok: false, status: 502, error: 'Ollama returned an empty response' };
-  }
-
-  return { ok: true, reply };
-};
-
+// ─── BMI Records ─────────────────────────────────────────────────────────────
 router.post('/bmi', authenticateToken, async (req, res) => {
   try {
     const { weight, height } = req.body;
@@ -167,19 +41,23 @@ router.get('/bmi', authenticateToken, async (req, res) => {
   }
 });
 
+// ─── Diet Logs ────────────────────────────────────────────────────────────────
 router.post('/diet', authenticateToken, async (req, res) => {
   try {
     const { date, calories_target, calories_consumed, protein_g, carbs_g, fat_g, water_ml, notes } = req.body;
     
+    // Check if log exists for this date
     let log = await DietLog.findOne({ userId: req.user.id, date });
     
     if (log) {
+      // Update existing
       log = await DietLog.findByIdAndUpdate(
         log._id,
         { calories_target, calories_consumed, protein_g, carbs_g, fat_g, water_ml, notes },
         { new: true }
       );
     } else {
+      // Create new
       log = await DietLog.create({
         userId: req.user.id,
         date,
@@ -211,6 +89,7 @@ router.get('/diet', authenticateToken, async (req, res) => {
   }
 });
 
+// ─── Workout Plans ────────────────────────────────────────────────────────────
 router.get('/workouts', authenticateToken, async (req, res) => {
   try {
     const plans = await WorkoutPlan.find({ userId: req.user.id })
@@ -251,6 +130,7 @@ router.delete('/workouts/:id', authenticateToken, async (req, res) => {
   }
 });
 
+// ─── Chat History ─────────────────────────────────────────────────────────────
 router.get('/chat', authenticateToken, async (req, res) => {
   try {
     const messages = await ChatHistory.find({ userId: req.user.id })
@@ -273,29 +153,6 @@ router.post('/chat', authenticateToken, async (req, res) => {
     res.status(201).json({ id: message._id });
   } catch (err) {
     console.error('Chat save error:', err);
-    res.status(500).json({ error: 'Server error' });
-  }
-});
-
-router.post('/chat/ai', authenticateToken, async (req, res) => {
-  try {
-    const { content, history = [] } = req.body;
-    if (!content || typeof content !== 'string') {
-      return res.status(400).json({ error: 'Message content is required' });
-    }
-
-    const provider = (process.env.LLM_PROVIDER || 'ollama').toLowerCase();
-    const llmResult = provider === 'gemini'
-      ? await callGemini({ user: req.user, content, history })
-      : await callOllama({ user: req.user, content, history });
-
-    if (!llmResult.ok) {
-      return res.status(llmResult.status || 502).json({ error: llmResult.error || 'AI provider error' });
-    }
-
-    res.json({ reply: llmResult.reply });
-  } catch (err) {
-    console.error('AI chat error:', err);
     res.status(500).json({ error: 'Server error' });
   }
 });

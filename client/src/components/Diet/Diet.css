@@ -58,7 +58,7 @@
 .macro-g { display: block; font-family: var(--font-display); font-size: 1.3rem; line-height: 1; }
 .macro-cal { display: block; font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); }
 
-
+/* Log */
 .diet-log-section {}
 .log-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .log-summary {
@@ -75,7 +75,7 @@
   color: var(--text-primary);
 }
 
-
+/* Meals */
 .meals-section {}
 .meal-card { padding: 20px; }
 .meal-title {

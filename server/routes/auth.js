@@ -7,6 +7,7 @@ const { authenticateToken } = require('../middleware/auth');
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET || 'fitquest_super_secret_2024';
 
+// Register
 router.post('/register', async (req, res) => {
   try {
     const { name, email, password, gender, age, weight, height, fitness_goal, activity_level } = req.body;
@@ -15,13 +16,16 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ error: 'Name, email and password are required' });
     }
 
+    // Check if user exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(409).json({ error: 'Email already registered' });
     }
 
+    // Hash password
     const hashedPassword = await bcrypt.hash(password, 12);
 
+    // Create user
     const user = await User.create({
       name,
       email,
@@ -34,8 +38,10 @@ router.post('/register', async (req, res) => {
       activity_level: activity_level || 'moderate'
     });
 
+    // Generate token
     const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: '7d' });
 
+    // Return user without password
     const userResponse = user.toObject();
     delete userResponse.password;
 
@@ -46,6 +52,7 @@ router.post('/register', async (req, res) => {
   }
 });
 
+// Login
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -54,18 +61,22 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ error: 'Email and password required' });
     }
 
+    // Find user
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
+    // Compare password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
+    // Generate token
     const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: '7d' });
 
+    // Return user without password
     const userResponse = user.toObject();
     delete userResponse.password;
 
@@ -76,6 +87,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// Get current user
 router.get('/me', authenticateToken, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
@@ -86,6 +98,7 @@ router.get('/me', authenticateToken, async (req, res) => {
   }
 });
 
+// Update profile
 router.put('/profile', authenticateToken, async (req, res) => {
   try {
     const { name, gender, age, weight, height, fitness_goal, activity_level } = req.body;

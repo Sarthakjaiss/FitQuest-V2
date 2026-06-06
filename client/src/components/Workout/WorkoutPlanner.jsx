@@ -95,6 +95,7 @@ export default function WorkoutPlanner() {
 
   return (
     <div className="workout-page animate-fade-in">
+      {/* Toolbar */}
       <div className="workout-toolbar">
         <button className="btn btn-primary" onClick={() => setShowForm(s => !s)}>
           <Plus size={16} /> {showForm ? 'Cancel' : 'New Workout Plan'}
@@ -104,6 +105,7 @@ export default function WorkoutPlanner() {
         </span>
       </div>
 
+      {/* Templates */}
       {!showForm && plans.length === 0 && (
         <div className="templates-section">
           <h3 style={{ fontFamily:'var(--font-display)', fontSize:'1.3rem', marginBottom: 6 }}>Quick Start Templates</h3>
@@ -126,6 +128,7 @@ export default function WorkoutPlanner() {
         </div>
       )}
 
+      {/* New Plan Form */}
       {showForm && (
         <div className="card workout-form animate-fade-up">
           <h2 style={{ fontFamily:'var(--font-display)', fontSize:'1.4rem', marginBottom: 20 }}>Build Your Workout</h2>
@@ -168,6 +171,7 @@ export default function WorkoutPlanner() {
               onChange={e => setNewPlan(p => ({...p, description: e.target.value}))} />
           </div>
 
+          {/* Exercises */}
           <div className="exercises-section">
             <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom: 14 }}>
               <h3 style={{ fontFamily:'var(--font-condensed)', fontSize:'1rem', fontWeight: 700, letterSpacing: '0.06em', textTransform:'uppercase', color:'var(--text-muted)' }}>
@@ -212,6 +216,7 @@ export default function WorkoutPlanner() {
         </div>
       )}
 
+      {/* Saved Plans */}
       {plans.length > 0 && (
         <div className="plans-section" style={{ marginTop: showForm ? 28 : 0 }}>
           <h2 style={{ fontFamily:'var(--font-display)', fontSize:'1.4rem', marginBottom: 20 }}>

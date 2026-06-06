@@ -4,6 +4,7 @@ const { authenticateToken } = require('../middleware/auth');
 
 const router = express.Router();
 
+// ─── Get all blog posts with pagination ──────────────────────────────────────
 router.get('/posts', async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
@@ -37,6 +38,7 @@ router.get('/posts', async (req, res) => {
   }
 });
 
+// ─── Get single post ─────────────────────────────────────────────────────────
 router.get('/posts/:id', async (req, res) => {
   try {
     const post = await BlogPost.findById(req.params.id)
@@ -51,6 +53,7 @@ router.get('/posts/:id', async (req, res) => {
   }
 });
 
+// ─── Create blog post (protected) ────────────────────────────────────────────
 router.post('/posts', authenticateToken, async (req, res) => {
   try {
     const { title, content, category, image } = req.body;
@@ -78,6 +81,7 @@ router.post('/posts', authenticateToken, async (req, res) => {
   }
 });
 
+// ─── Update post (own posts only) ────────────────────────────────────────────
 router.put('/posts/:id', authenticateToken, async (req, res) => {
   try {
     const post = await BlogPost.findById(req.params.id);
@@ -101,6 +105,7 @@ router.put('/posts/:id', authenticateToken, async (req, res) => {
   }
 });
 
+// ─── Delete post (own posts only) ────────────────────────────────────────────
 router.delete('/posts/:id', authenticateToken, async (req, res) => {
   try {
     const post = await BlogPost.findById(req.params.id);
@@ -117,6 +122,7 @@ router.delete('/posts/:id', authenticateToken, async (req, res) => {
   }
 });
 
+// ─── Like/Unlike post ───────────────────────────────────────────────────────
 router.post('/posts/:id/like', authenticateToken, async (req, res) => {
   try {
     const post = await BlogPost.findById(req.params.id);
@@ -137,6 +143,7 @@ router.post('/posts/:id/like', authenticateToken, async (req, res) => {
   }
 });
 
+// ─── Add comment to post ────────────────────────────────────────────────────
 router.post('/posts/:id/comments', authenticateToken, async (req, res) => {
   try {
     const { content } = req.body;
@@ -162,6 +169,7 @@ router.post('/posts/:id/comments', authenticateToken, async (req, res) => {
   }
 });
 
+// ─── Delete comment from post ───────────────────────────────────────────────
 router.delete('/posts/:postId/comments/:commentId', authenticateToken, async (req, res) => {
   try {
     const post = await BlogPost.findById(req.params.postId);
@@ -183,6 +191,7 @@ router.delete('/posts/:postId/comments/:commentId', authenticateToken, async (re
   }
 });
 
+// ─── Get user's posts ──────────────────────────────────────────────────────
 router.get('/user/:userId/posts', async (req, res) => {
   try {
     const posts = await BlogPost.find({ userId: req.params.userId })

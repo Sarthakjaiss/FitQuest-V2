@@ -75,6 +75,7 @@ export default function DietCalculator() {
 
   return (
     <div className="diet-page animate-fade-in">
+      {/* Tabs */}
       <div className="diet-tabs">
         {[['calculator','🧮 TDEE Calculator'],['log','📝 Daily Log'],['meals','🍽️ Meal Ideas']].map(([k,l]) => (
           <button key={k} className={`diet-tab ${tab===k?'active':''}`} onClick={() => setTab(k)}>{l}</button>
@@ -83,6 +84,7 @@ export default function DietCalculator() {
 
       {tab === 'calculator' && (
         <div className="diet-layout">
+          {/* Input Panel */}
           <div className="card diet-input-card">
             <h2 style={{ fontFamily:'var(--font-display)', fontSize:'1.4rem', marginBottom: 20 }}>
               <Flame size={20} color="var(--warning)" style={{ verticalAlign:'middle', marginRight: 8 }} />
@@ -134,6 +136,7 @@ export default function DietCalculator() {
             </button>
           </div>
 
+          {/* Results */}
           <div className="diet-results">
             {result ? (
               <>
@@ -152,6 +155,7 @@ export default function DietCalculator() {
                   ))}
                 </div>
 
+                {/* Macro Pie */}
                 <div className="card macro-card">
                   <h3 style={{ fontFamily:'var(--font-display)', fontSize:'1.2rem', marginBottom: 16 }}>Macro Breakdown</h3>
                   <div className="macro-layout">
@@ -185,6 +189,7 @@ export default function DietCalculator() {
                   </div>
                 </div>
 
+                {/* Water intake */}
                 <div className="card" style={{ padding: 20 }}>
                   <div style={{ display:'flex', alignItems:'center', gap: 8, marginBottom: 12 }}>
                     <Droplets size={18} color="var(--accent2)" />

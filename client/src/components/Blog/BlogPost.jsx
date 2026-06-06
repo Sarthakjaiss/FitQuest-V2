@@ -87,6 +87,7 @@ export default function BlogPost() {
       </button>
 
       <div className="card" style={{ padding: 32, maxWidth: 900, margin: '0 auto' }}>
+        {/* Header */}
         <div style={{ marginBottom: 24 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
             <span className={`badge badge-accent`}>
@@ -109,12 +110,14 @@ export default function BlogPost() {
           </div>
         </div>
 
+        {/* Image */}
         {post.image && (
           <div style={{ marginBottom: 24, borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
             <img src={post.image} alt={post.title} style={{ width: '100%', maxHeight: 400, objectFit: 'cover' }} />
           </div>
         )}
 
+        {/* Content */}
         <div style={{
           fontSize: '1rem',
           lineHeight: 1.8,
@@ -126,6 +129,7 @@ export default function BlogPost() {
           {post.content}
         </div>
 
+        {/* Actions */}
         <div style={{ display: 'flex', gap: 16, padding: '20px 0', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', marginBottom: 28 }}>
           <button
             onClick={likePost}
@@ -165,11 +169,13 @@ export default function BlogPost() {
           </div>
         </div>
 
+        {/* Comments Section */}
         <div>
           <h3 style={{ fontFamily: 'var(--font-condensed)', fontSize: '1.1rem', fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: 20, color: 'var(--text-primary)' }}>
             Comments ({post.comments?.length || 0})
           </h3>
 
+          {/* Comment Form */}
           {user && (
             <form onSubmit={submitComment} style={{ marginBottom: 24, padding: '16px', background: 'var(--bg-secondary)', borderRadius: 'var(--radius-lg)' }}>
               <textarea
@@ -203,6 +209,7 @@ export default function BlogPost() {
             </form>
           )}
 
+          {/* Comments List */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {post.comments && post.comments.length > 0 ? (
               post.comments.map(comment => (
