@@ -3,14 +3,14 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/client/api/$1.js"
+      "dest": "/api/$1.js"
     },
     {
       "handle": "filesystem"
     },
     {
       "src": "/(.*)",
-      "dest": "/client/dist/index.html"
+      "dest": "/index.html"
     }
   ]
 }
