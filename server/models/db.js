@@ -117,18 +117,32 @@ blogPostSchema.index({ category: 1, createdAt: -1 });
 // ═════════════════════════════════════════════════════════════════════════════
 // Connect to MongoDB
 // ═════════════════════════════════════════════════════════════════════════════
+const cache = global._mongoose || (global._mongoose = { conn: null, promise: null });
+
 async function connectDB() {
-  try {
+  if (cache.conn) {
+    return cache.conn;
+  }
+
+  if (!cache.promise) {
     const mongoURL = process.env.MONGODB_URI || 'mongodb://localhost:27017/fitquest';
-    await mongoose.connect(mongoURL, {
+    cache.promise = mongoose.connect(mongoURL, {
       useNewUrlParser: true,
       useUnifiedTopology: true
+    })
+    .then((mongooseInstance) => {
+      cache.conn = mongooseInstance;
+      console.log('✅ MongoDB connected successfully');
+      return cache.conn;
+    })
+    .catch((err) => {
+      cache.promise = null;
+      console.error('❌ MongoDB connection failed:', err.message);
+      throw err;
     });
-    console.log('✅ MongoDB connected successfully');
-  } catch (err) {
-    console.error('❌ MongoDB connection failed:', err.message);
-    process.exit(1);
   }
+
+  return cache.promise;
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
